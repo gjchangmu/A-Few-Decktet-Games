@@ -20,4 +20,4 @@ Adaman features:
 [Decktet](https://www.decktet.com/) is a card system designed and illustrated by P.D. Magnus.
 The rule texts are not currently included in this implementation. If you are a new player, please see the [Decktet Wiki](http://decktet.wikidot.com/game:myrmex) for rule texts.
 
-A Few Decktet Games is licenced under CC Attribute ShareAlike, the same license as the card images are in.
+A Few Decktet Games is licenced under CC Attribute Non-Commercial ShareAlike license, the same as the card images are in.

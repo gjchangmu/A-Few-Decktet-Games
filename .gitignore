@@ -1,0 +1,11 @@
+build
+release
+bin
+
+*.pdb
+*.exp
+*.sdf
+*.suo
+*.opensdf
+*.lnk
+*vshost.exe*

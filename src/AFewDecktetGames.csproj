@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{75AD51A9-52A9-4198-B693-DC9E62F56883}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>nsForm</RootNamespace>
+    <AssemblyName>A Few Decktet Games</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\bin</OutputPath>
+    <BaseIntermediateOutputPath>..\build\obj\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\bin</OutputPath>
+    <BaseIntermediateOutputPath>..\build\obj\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(BaseIntermediateOutputPath)$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>
+    </DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup />
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="Microsoft.Ink, Version=6.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Microsoft.Ink.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="Main_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main_Form.Designer.cs">
+      <DependentUpon>Main_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Myrmex_FormConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Myrmex_FormConfig.Designer.cs">
+      <DependentUpon>Myrmex_FormConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Myrmex_Config.cs" />
+    <Compile Include="Myrmex_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Myrmex_Form.Designer.cs">
+      <DependentUpon>Myrmex_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Myrmex.cs" />
+    <Compile Include="Adaman.cs" />
+    <Compile Include="Adaman_Config.cs" />
+    <Compile Include="Adaman_FormConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Adaman_FormConfig.Designer.cs">
+      <DependentUpon>Adaman_FormConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DecktetCard.cs" />
+    <Compile Include="DecktetDeck.cs" />
+    <Compile Include="Adaman_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Adaman_Form.Designer.cs">
+      <DependentUpon>Adaman_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoundedButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIButton.cs" />
+    <Compile Include="Util.cs" />
+    <EmbeddedResource Include="Main_Form.resx">
+      <DependentUpon>Main_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Myrmex_FormConfig.resx">
+      <DependentUpon>Myrmex_FormConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Myrmex_Form.resx">
+      <DependentUpon>Myrmex_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Adaman_Form.resx">
+      <DependentUpon>Adaman_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Adaman_FormConfig.resx">
+      <DependentUpon>Adaman_FormConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_knots_a.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_excuse.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_knots.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_leaves.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_moons.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_suns.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_waves.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_wyrms.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_author.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_desert.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_origin.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_journey.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_painter.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_savage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_battle.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_mountain.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_sailor.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5_discovery.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5_forest.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5_soldier.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6_lunactic.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6_market.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6_penitent.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7_castle.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7_cave.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7_chance_meeting.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\8_betrayal.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\8_diplomat.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\8_mill.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9_darkness.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9_merchant.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9_pact.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\10_pawn_borderland.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\10_pawn_harvest.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\10_pawn_light_keeper.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\10_pawn_watchman.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11_court_consul.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11_court_island.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11_court_rite.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11_court_window.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_knots.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_leaves.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_moons.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_suns.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_waves.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_wyrms.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_leaves_a.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_moons_a.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_suns_a.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_waves_a.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_wyrms_a.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_excuse_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_knots_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_leaves_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_moons_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_suns_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_waves_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_ace_wyrms_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_author_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_desert_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_origin_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_journey_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_painter_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_savage_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_battle_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_mountain_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_sailor_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5_discovery_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5_forest_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\5_soldier_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6_lunactic_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6_market_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\6_penitent_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7_castle_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7_cave_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\7_chance_meeting_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\8_betrayal_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\8_diplomat_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\8_mill_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9_darkness_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9_merchant_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\9_pact_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\10_pawn_borderland_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\10_pawn_harvest_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\10_pawn_light_keeper_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\10_pawn_watchman_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11_court_consul_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11_court_island_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11_court_rite_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11_court_window_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_knots_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_leaves_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_moons_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_suns_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_waves_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12_crown_wyrms_h.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\backtemp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back3.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

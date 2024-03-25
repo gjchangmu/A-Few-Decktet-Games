@@ -15,6 +15,7 @@ Adaman features:
 - A 'hint' button to get a suggestion move by the simple AI.
 - An unofficial variant to reduce the chance of unavaildable losing: stop replenishing resources if there are 5 personalities in palace.
 
+![screenshot](https://raw.githubusercontent.com/gjchangmu/A-Few-Decktet_Games/master/screenshot1.jpg)  
 
 [Decktet](https://www.decktet.com/) is a card system designed and illustrated by P.D. Magnus.
 The rule texts are not currently included in this implementation. If you are a new player, please see the [Decktet Wiki](http://decktet.wikidot.com/game:myrmex) for rule texts.

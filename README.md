@@ -11,6 +11,7 @@ Download in the release section, or use [this direct link](https://github.com/gj
 ### Myrmex (designed by Greg James):
 - Customizable number of columns, number of rows at startup, and card rank range. This provides easier variants than the official base game.
 - All cards face-up variant.
+
 ![screenshot](https://github.com/gjchangmu/A-Few-Decktet-Games/blob/master/screenshot1.jpg?raw=true)
 
 ### Adaman (designed by P.D. Magnus):
@@ -20,7 +21,7 @@ Download in the release section, or use [this direct link](https://github.com/gj
 
 ## How to play
 
-### Defend and Capture
+### Defend and Capture (designed by W. Nai)
 - Select one single (not multiple) card in hand and select a card/slot in defence/side area, then click the 'Play' button to play the card in hand to the slot.
 - Select a card in defence/side area, do NOT select any card in hand, then click the 'Counterattack' button to launch a counterattack from the selected card.
 - Select one single (not multiple) card in hand and select a card in captured area, then click the 'Interchange' button to interchange them.
@@ -30,7 +31,7 @@ Download in the release section, or use [this direct link](https://github.com/gj
 
 If you are not seeing a button for your desired action, you are not making a correct selection.
 
-### Adaman (designed by P.D. Magnus):
+### Adaman:
 - Select cards in Resource you want to spend and select one card in Palace/Capital you want to control. Click the 'Confirm' button.
 
 [Decktet](https://www.decktet.com/) is a card system designed and illustrated by P.D. Magnus.

@@ -19,6 +19,11 @@ namespace nsForm
 		List<Myrmex> History = new List<Myrmex>();
 
 		List<UIButton> BackSlot = new List<UIButton>();
+
+		float EffectiveScale = 1f;
+		float EffectiveWindowLeft = 0;
+		float EffectiveWindowTop = 0;
+
 		private void NewGame(bool seeded = false)
 		{
 			Myrmex = new Myrmex();
@@ -29,7 +34,7 @@ namespace nsForm
 		{
 			InitializeComponent();
 		}
-		private void Form1_Load(object sender, EventArgs e)
+		private void Myrmex_Form_Load(object sender, EventArgs e)
 		{
 			try
 			{
@@ -48,8 +53,8 @@ namespace nsForm
 			{
 				UIButton bt = new UIButton();
 				bt.Button = new RoundedButton();
-				bt.Button.Size = new Size(95, 133);
-				bt.Button.Location = new Point(176 + c * 109 - bt.Button.Width / 2, 80 - bt.Button.Height / 2);
+				//bt.Button.Size = new Size(95, 133);
+				//bt.Button.Location = new Point(176 + c * 109 - bt.Button.Width / 2, 80 - bt.Button.Height / 2);
 				bt.Button.FlatStyle = FlatStyle.Flat;
 				bt.Button.FlatAppearance.BorderSize = 1;
 				bt.Button.FlatAppearance.BorderColor = Color.FromArgb(255, 178, 206, 170);
@@ -69,7 +74,9 @@ namespace nsForm
 				Myrmex = (Myrmex)xmls.Deserialize(sr);
 				foreach (string gamename in Myrmex.AllComponentsForUI)
 				{
-					Myrmex.GetComponent(gamename).UIFlyInstantlyOnce = true;
+					DecktetCard card = Myrmex.GetComponent(gamename);
+					foreach (UIAnimationStep step in card.UIAnimationSteps)
+						step.FlyInstantly = true;
 				}
 				sr.Close();
 				fs.Close();
@@ -98,8 +105,8 @@ namespace nsForm
 					BackSlot[c].Button.Visible = false;
 
 			tiUI.Enabled = true;
-			pictureBox1.Size = this.Size;
 			pictureBox1.SendToBack();
+			Myrmex_Form_SizeChanged(sender, e);
 		}
 
 		public int MouseDownX, MouseDownY;
@@ -138,7 +145,9 @@ namespace nsForm
 			if (Myrmex.FloatingCardCount == 0)
 				return;
 
-			Myrmex.SetFloatingPosition(Control.MousePosition.X - MouseDownX, Control.MousePosition.Y - MouseDownY);
+			float x = (Control.MousePosition.X - MouseDownX) / EffectiveScale;
+			float y = (Control.MousePosition.Y - MouseDownY) / EffectiveScale;
+			Myrmex.SetFloatingPosition(x, y);
 		}
 		private void btComponents_MouseUp(object sender, MouseEventArgs e)
 		{
@@ -209,8 +218,12 @@ namespace nsForm
 			{
 				Myrmex = History[History.Count - 1];
 				History.RemoveAt(History.Count - 1);
-				foreach (string gamename in Myrmex.AllComponentsForUI)
-					 Myrmex.GetComponent(gamename).UIFlyingZOrder = 50;
+				//foreach (string gamename in Myrmex.AllComponentsForUI)
+				//{
+				//	DecktetCard card = Myrmex.GetComponent(gamename);
+				//	foreach (UIAnimationStep step in card.UIAnimationSteps)
+				//		step.FlyZOrder = 50;
+				//}
 			}
 		}
 		private void btReset_Click(object sender, EventArgs e)
@@ -271,8 +284,13 @@ namespace nsForm
 					bt.Button = new RoundedButton();
 					bt.Button.Tag = gamename;
 					DecktetCard card = Myrmex.GetComponent(gamename);
-					bt.Button.Size = new Size(100, 140);
-					bt.Button.Location = new Point((int)card.PositionX[0] - bt.Button.Width / 2, (int)card.PositionY[0] - bt.Button.Height / 2);
+					//bt.Button.Size = new Size(100, 140);
+					bt.UIX = card.UIAnimationSteps[0].PositionX;
+					bt.UIY = card.UIAnimationSteps[0].PositionY;
+					bt.UIW = card.UIAnimationSteps[0].SizeW;
+					bt.UIH = card.UIAnimationSteps[0].SizeH;
+					bt.Button.Size = new Size((int)card.UIAnimationSteps[0].SizeW, (int)card.UIAnimationSteps[0].SizeH);
+					bt.Button.Location = new Point((int)card.UIAnimationSteps[0].PositionX - bt.Button.Width / 2, (int)card.UIAnimationSteps[0].PositionY - bt.Button.Height / 2);
 					bt.Button.BackgroundImageLayout = ImageLayout.Zoom;
 					bt.Button.FlatStyle = FlatStyle.Flat;
 					bt.Button.FlatAppearance.BorderSize = 0;
@@ -312,7 +330,7 @@ namespace nsForm
 					bt.UIX = Myrmex.MainDeck.PositionX;
 					bt.UIY = Myrmex.MainDeck.PositionY;
 					//bt.Button.Location = new Point((int)(bt.UIX + 0.5f), (int)(bt.UIY + 0.5f));
-					bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back3");
+					bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back2");
 					bt.UIFaceUp = false;
 				}
 			}
@@ -338,7 +356,7 @@ namespace nsForm
 					}
 					else
 					{
-						bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back3");
+						bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back2");
 						bt.UIFaceUp = false;
 					}
 				}
@@ -356,8 +374,8 @@ namespace nsForm
 					for (int i = 0; i < deck.Cards.Count; i++)
 					{
 						DecktetCard card = deck.Cards[i];
-						int zorder = card.UIFlyingZOrder + deck.UIZOrder + i;
-						if (card.UIFlyOnTop && CardShotName2Button[card.GameName].UIIsFlying)
+						int zorder = card.UIAnimationSteps[0].FlyZOrder + deck.UIZOrder + i;
+						if (card.UIAlwaysFlyOnTop && CardShotName2Button[card.GameName].UIIsFlying)
 						{
 							zorder += 200;
 						}
@@ -403,53 +421,58 @@ namespace nsForm
 					DecktetCard card = Myrmex.GetComponent(gamename);
 					UIButton bt = CardShotName2Button[gamename];
 
-					float distance = (float)Math.Sqrt(Math.Pow((card.PositionX[0] - bt.UIX), 2) + Math.Pow((card.PositionY[0] - bt.UIY), 2));
+					float distance = (float)Math.Sqrt(Math.Pow((card.UIAnimationSteps[0].PositionX - bt.UIX), 2) + Math.Pow((card.UIAnimationSteps[0].PositionY - bt.UIY), 2));
 					float flyd = Myrmex_Config.AnimationSpeed * dt;
-					if (card.UIFlyInstantly)
+					if (card.UIAlwaysFlyInstantly)
 						flyd = 10000;
-					if (card.UIFlyInstantlyOnce)
+					if (card.UIAnimationSteps[0].FlyInstantly)
 					{
 						flyd = 10000;
-						card.UIFlyInstantlyOnce = false;
+						//card.UIFlyInstantlyOnce = false;
 					}
 
-					if (distance > 0 || card.PositionX.Count > 1)
+					if (distance > 0 || card.UIAnimationSteps.Count > 1)
 					{
 						bt.UIIsFlying = true;
 					}
-					if (card.UIFlyingStartTime[0] < DateTime.Now)
+					if (card.UIAnimationSteps[0].StartTime < DateTime.Now)
 					{
 
 						if (distance > flyd)
 						{
 							float r = flyd / distance;
-							bt.UIX += (card.PositionX[0] - bt.UIX) * r;
-							bt.UIY += (card.PositionY[0] - bt.UIY) * r;
+							bt.UIX += (card.UIAnimationSteps[0].PositionX - bt.UIX) * r;
+							bt.UIY += (card.UIAnimationSteps[0].PositionY - bt.UIY) * r;
+
+							bt.UIW += (card.UIAnimationSteps[0].SizeW - bt.UIW) * r;
+							bt.UIH += (card.UIAnimationSteps[0].SizeH - bt.UIH) * r;
+							bt.Button.HighQuality = false;
 						}
 						else if (distance > 0)
 						{
-							bt.UIX = card.PositionX[0];
-							bt.UIY = card.PositionY[0];
-							//UINeedUpdate = true;
+							bt.UIX = card.UIAnimationSteps[0].PositionX;
+							bt.UIY = card.UIAnimationSteps[0].PositionY;
+
+							bt.UIW = card.UIAnimationSteps[0].SizeW;
+							bt.UIH = card.UIAnimationSteps[0].SizeH;
+
+							bt.Button.HighQuality = true;
+							bt.Button.Invalidate();
 						}
 						else
 						{
-							if (card.PositionX.Count > 1)
+							if (card.UIAnimationSteps.Count > 1)
 							{
-								card.PositionX.RemoveAt(0);
-								card.PositionY.RemoveAt(0);
-								card.UIFlyingStartTime.RemoveAt(0);
+								card.UIAnimationSteps.RemoveAt(0);
 							}
 							else
 							{
 								bt.UIIsFlying = false;
-								card.UIFlyingZOrder = 0;
+								card.UIAnimationSteps[0].FlyZOrder = 0;
 							}
 						}
 
-						//bt.Button.Location = new Point((int)(bt.UIX - bt.Button.Width / 2 + 0.5f), (int)(bt.UIY - bt.Button.Height / 2 + 0.5f));
-						bt.Button.Left = (int)(bt.UIX - bt.Button.Width / 2 + 0.5f);
-						bt.Button.Top = (int)(bt.UIY - bt.Button.Height / 2 + 0.5f);
+						ToScaledLocationSize(bt.Button, bt.UIX, bt.UIY, bt.UIW, bt.UIH);
 					}
 				}
 			}
@@ -497,9 +520,12 @@ namespace nsForm
 			{
 				DecktetCard card = Myrmex.GetComponent(shortname);
 				UIButton bt = CardShotName2Button[shortname];
+				bt.UIW = Myrmex.MainDeck.SizeW;
+				bt.UIH = Myrmex.MainDeck.SizeH;
 				bt.UIX = Myrmex.MainDeck.PositionX;
 				bt.UIY = Myrmex.MainDeck.PositionY;
-				bt.Button.Location = new Point((int)(bt.UIX - bt.Button.Width / 2 + 0.5f), (int)(bt.UIY - bt.Button.Height / 2 + 0.5f));
+				ToScaledLocationSize(bt.Button, bt.UIX, bt.UIY, bt.UIW, bt.UIH);
+
 				//if (card.FaceUp)
 				if (false)
 				{
@@ -511,7 +537,7 @@ namespace nsForm
 				}
 				else
 				{
-					bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back3");
+					bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back2");
 					bt.UIFaceUp = false;
 				}
 			}
@@ -550,6 +576,52 @@ namespace nsForm
 			xmls.Serialize(sw, History);
 			sw.Close();
 			fs.Close();
+		}
+
+		private void Myrmex_Form_SizeChanged(object sender, EventArgs e)
+		{
+			if (this.Width < 640 || this.Height < 360 || this.WindowState == FormWindowState.Minimized)
+				return;
+
+			if ((float)this.Width / this.Height >= 1280f / 720f)
+			{
+				EffectiveScale = this.Height / 720f;
+				EffectiveWindowLeft = (this.Width - this.Height / 720f * 1280f) / 2f;
+				EffectiveWindowTop = 0;
+			}
+			else
+			{
+				EffectiveScale = this.Width / 1280f;
+				EffectiveWindowLeft = 0;
+				EffectiveWindowTop = (this.Height - this.Width / 1280f * 720f) / 2f;
+			}
+
+			for (int c = 0; c < BackSlot.Count; c++)
+				ToScaledLocationSize(BackSlot[c].Button, 176 + c * 113, 80, 95, 133);
+			ToScaledLocationSize(btSettings, 63, 27, 100, 30);
+			ToScaledLocationSize(btNewGame, 63, 62, 100, 30);
+			ToScaledLocationSize(btReset, 63, 97, 100, 30);
+			ToScaledLocationSize(btUndo, 185, 650, 100, 30);
+			ToScaledLocationSize(btSuggest, 385, 650, 100, 30);
+			ToScaledLocationSize(lbStatusWin, 330, 460, 640, 50, 28);
+
+			pictureBox1.Width = this.Width;
+			pictureBox1.Height = this.Height;
+
+		}
+
+		private void ToScaledLocationSize(Control control, float left, float top, float width, float height, float fontsize = 11)
+		{
+			int aimw = (int)(width * EffectiveScale + 0.5f);
+			int aimh = (int)(height * EffectiveScale + 0.5f);
+			int aiml = (int)(left * EffectiveScale + EffectiveWindowLeft - aimw / 2 + 0.5f);
+			int aimt = (int)(top * EffectiveScale + EffectiveWindowTop - aimh / 2 + 0.5f);
+			if (control.Left != aiml || control.Top != aimt)
+				control.Location = new Point(aiml, aimt);
+			if (control.Width != aimw || control.Height != aimh)
+				control.Size = new Size(aimw, aimh);
+			if ((int)control.Font.SizeInPoints != (int)(fontsize * EffectiveScale))
+				control.Font = new Font(control.Font.Name, (int)(fontsize * EffectiveScale));
 		}
 
 		private void btTest_Click(object sender, EventArgs e)

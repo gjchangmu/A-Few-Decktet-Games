@@ -43,5 +43,13 @@ namespace nsForm
 			form.ShowDialog();
 			this.Show();
 		}
+
+		private void btDefenseCapture1p_Click(object sender, EventArgs e)
+		{
+			DefenseCapture1p_Form form = new DefenseCapture1p_Form();
+			this.Hide();
+			form.ShowDialog();
+			this.Show();
+		}
 	}
 }

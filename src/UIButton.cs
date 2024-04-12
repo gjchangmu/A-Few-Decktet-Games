@@ -10,9 +10,11 @@ namespace nsForm
 	{
 		public RoundedButton Button;
 		public float UIX, UIY;
+		public float UIW, UIH;
 		public int UIZOrder;
 		public bool UIIsFlying;
 		//public bool HaveBringToFront;
 		public bool UIFaceUp;
+		public bool UISelected;
 	}
 }

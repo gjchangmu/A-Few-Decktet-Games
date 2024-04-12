@@ -10,6 +10,7 @@ namespace nsDecktet
 		public string GameName;
 		public List<DecktetCard> Cards = new List<DecktetCard>();
 		public float PositionX, PositionY;
+		public float SizeW, SizeH;
 		//public bool UpdateArravingCardPosition = true;
 
 		public int GameInfo1, GameInfo2;
@@ -98,6 +99,8 @@ namespace nsDecktet
 			clone.GameName = GameName;
 			clone.PositionX = PositionX;
 			clone.PositionY = PositionY;
+			clone.SizeW = SizeW;
+			clone.SizeH = SizeH;
 			clone.GameInfo1 = GameInfo1;
 			clone.GameInfo2 = GameInfo2;
 
@@ -162,10 +165,15 @@ namespace nsDecktet
 			Cards.Add(card);
 			if (true)
 			{
-				card.PositionX.Add(PositionX);
-				card.PositionY.Add(PositionY);
-				card.UIFlyingZOrder = flyingzorder;
-				card.UIFlyingStartTime.Add(DateTime.Now.AddSeconds(timedelay));
+				UIAnimationStep step = new UIAnimationStep();
+				step.PositionX = PositionX;
+				step.PositionY = PositionY;
+				step.SizeW = SizeW;
+				step.SizeH = SizeH;
+				step.FlyZOrder = flyingzorder;
+				step.StartTime = DateTime.Now.AddSeconds(timedelay);
+				card.UIAnimationSteps.Add(step);
+
 			}
 		}
 		public void AddAtBottom(DecktetCard card, float timedelay = 0, int flyingzorder = 0)
@@ -176,10 +184,14 @@ namespace nsDecktet
 			Cards.Insert(0, card);
 			if (true)
 			{
-				card.PositionX.Add(PositionX);
-				card.PositionY.Add(PositionY);
-				card.UIFlyingZOrder = flyingzorder;
-				card.UIFlyingStartTime.Add(DateTime.Now.AddSeconds(timedelay));
+				UIAnimationStep step = new UIAnimationStep();
+				step.PositionX = PositionX;
+				step.PositionY = PositionY;
+				step.SizeW = SizeW;
+				step.SizeH = SizeH;
+				step.FlyZOrder = flyingzorder;
+				step.StartTime = DateTime.Now.AddSeconds(timedelay);
+				card.UIAnimationSteps.Add(step);
 			}
 		}
 		public void Extend(DecktetDeck deck, float timedelay = 0)
@@ -191,9 +203,13 @@ namespace nsDecktet
 				Cards.Add(card);
 				if (true)
 				{
-					card.PositionX.Add(PositionX);
-					card.PositionY.Add(PositionY);
-					card.UIFlyingStartTime.Add(DateTime.Now.AddSeconds(timedelay));
+					UIAnimationStep step = new UIAnimationStep();
+					step.PositionX = PositionX;
+					step.PositionY = PositionY;
+					step.SizeW = SizeW;
+					step.SizeH = SizeH;
+					step.StartTime = DateTime.Now.AddSeconds(timedelay);
+					card.UIAnimationSteps.Add(step);
 				}
 			}
 		}
@@ -246,7 +262,7 @@ namespace nsDecktet
 			Cards.Clear();
 			return card;
 		}
-		public DecktetCard Pull(string shortname)
+		public DecktetCard Pull(string shortname, bool tofaceup = true)
 		{
 			int count = 0;
 			DecktetCard thecard = null;
@@ -261,6 +277,28 @@ namespace nsDecktet
 			if (count == 1)
 			{
 				Cards.Remove(thecard);
+				if (tofaceup)
+					thecard.FaceUp = true;
+				return thecard;
+			}
+			else
+			{
+				throw new Exception();
+			}
+		}
+		public DecktetCard Pull(DecktetCard thecard, bool tofaceup = true)
+		{
+			int count = 0;
+			foreach (DecktetCard card in Cards)
+			{
+				if (card == thecard)
+					count++;
+			}
+			if (count == 1)
+			{
+				Cards.Remove(thecard);
+				if (tofaceup)
+					thecard.FaceUp = true;
 				return thecard;
 			}
 			else
@@ -273,12 +311,15 @@ namespace nsDecktet
 		{
 			foreach (DecktetCard card in Cards)
 			{
-				card.PositionX.Clear();
-				card.PositionY.Clear();
-				card.UIFlyingStartTime.Clear();
-				card.PositionX.Add(PositionX);
-				card.PositionY.Add(PositionY);
-				card.UIFlyingStartTime.Add(DateTime.Now);
+				UIAnimationStep step = new UIAnimationStep();
+				step.PositionX = PositionX;
+				step.PositionY = PositionY;
+				step.SizeW = SizeW;
+				step.SizeH = SizeH;
+				step.FlyZOrder = 0;
+				step.StartTime = DateTime.Now;
+				card.UIAnimationSteps.Clear();
+				card.UIAnimationSteps.Add(step);
 			}
 		}
 	// only for UI, not related to any game logic

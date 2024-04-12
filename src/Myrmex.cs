@@ -85,8 +85,10 @@ namespace nsDecktet
 				//foreach (DecktetCard card in MainDeck.Cards)
 				//	card.GameName = card.ShortName;
 				DecktetDeck MainDeck2 = DecktetDeck.New36();
-				MainDeck2.PositionX = 63;
-				MainDeck2.PositionY = 560;
+				//MainDeck2.PositionX = 63;
+				//MainDeck2.PositionY = 560;
+				//MainDeck2.SizeW = 100;
+				//MainDeck2.SizeH = 140;
 				MainDeck2.DestroyRank("Ace");
 				MainDeck2.DestroyRank("Crown");
 				foreach (DecktetCard card in MainDeck2.Cards)
@@ -97,7 +99,9 @@ namespace nsDecktet
 
 			MainDeck.SetGameRandNum("Crown", 10);
 			MainDeck.PositionX = 63;
-			MainDeck.PositionY = 560;
+			MainDeck.PositionY = 600;
+			MainDeck.SizeW = 100;
+			MainDeck.SizeH = 140;
 
 			if (RankTo <= 9)
 			{
@@ -138,8 +142,8 @@ namespace nsDecktet
 
 			foreach (DecktetCard card in MainDeck.Cards)
 			{
-				card.UIFlyOnTop = false;
-				card.UIFlyInstantly = false;
+				card.UIAlwaysFlyOnTop = false;
+				card.UIAlwaysFlyInstantly = false;
 			}
 			MainDeck.InitAllCardsPosition();
 			MainDeck.Shuffle();
@@ -158,8 +162,10 @@ namespace nsDecktet
 					Columns[c][r].GameName = "Column_" + c + "," + r;
 					Columns[c][r].GameInfo1 = c;
 					Columns[c][r].GameInfo2 = r;
-					Columns[c][r].PositionX = 176 + c * 109;
+					Columns[c][r].PositionX = 176 + c * 113;
 					Columns[c][r].PositionY = 80 + r * Myrmex_Config.RowPositionInterval;
+					Columns[c][r].SizeW = 105;
+					Columns[c][r].SizeH = 147;
 					Columns[c][r].UIZOrder = r + c;
 					if (r < NumRow)
 					{
@@ -178,6 +184,8 @@ namespace nsDecktet
 				Floating[r].GameName = "Floating_" + r;
 				//Floating[r].PositionX = 0;
 				//Floating[r].PositionY = 0;
+				Floating[r].SizeW = 105;
+				Floating[r].SizeH = 147;
 				Floating[r].UIZOrder = r + 50;
 			}
 
@@ -188,6 +196,8 @@ namespace nsDecktet
 				Finished[f].GameName = "Finished_" + f;
 				Finished[f].PositionX = 63;
 				Finished[f].PositionY = 235 + f * (Myrmex_Config.RowPositionInterval + 3);
+				Finished[f].SizeW = 105;
+				Finished[f].SizeH = 147;
 				Finished[f].UIZOrder = f * 10;
 			}
 		}
@@ -436,11 +446,11 @@ namespace nsDecktet
 			for (int rii = rowi; rii < srccardcnt; rii++)
 			{
 				DecktetCard card = Columns[columni][rii].GetSingleCard();
-				Floating[rii - rowi].PositionX = card.PositionX[0];
-				Floating[rii - rowi].PositionY = card.PositionY[0];
+				Floating[rii - rowi].PositionX = card.UIAnimationSteps[0].PositionX;
+				Floating[rii - rowi].PositionY = card.UIAnimationSteps[0].PositionY;
 				Floating[rii - rowi].Add(Columns[columni][rii].PickUpSingle());
 
-				card.UIFlyInstantly = true;
+				card.UIAlwaysFlyInstantly = true;
 			}
 			FloatingSourceColumnIndex = columni;
 			FloatingOrinX = Floating[0].PositionX;
@@ -451,7 +461,7 @@ namespace nsDecktet
 			int destn = GetColumnCardCount(columni);
 			for (int rii = 0; rii < FloatingCardCount; rii++)
 			{
-				Floating[rii].GetSingleCard().UIFlyInstantly = false;
+				Floating[rii].GetSingleCard().UIAlwaysFlyInstantly = false;
 				Columns[columni][rii + destn].Add(Floating[rii].PickUpSingle());
 			}
 			FloatingCardCount = 0;
@@ -474,12 +484,12 @@ namespace nsDecktet
 			int destn = GetColumnCardCount(FloatingSourceColumnIndex);
 			for (int rii = 0; rii < FloatingCardCount; rii++)
 			{
-				Floating[rii].GetSingleCard().UIFlyInstantly = false;
+				Floating[rii].GetSingleCard().UIAlwaysFlyInstantly = false;
 				Columns[FloatingSourceColumnIndex][rii + destn].Add(Floating[rii].PickUpSingle(), 0, 10);
 			}
 			FloatingCardCount = 0;
 		}
-		public void SetFloatingPosition(int dx, int dy)
+		public void SetFloatingPosition(float dx, float dy)
 		{
 			for (int f = 0; f < FloatingCardCount; f++)
 			{

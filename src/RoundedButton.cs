@@ -11,11 +11,15 @@ namespace nsForm
 	public class RoundedButton : Button
 	{
 		public bool DrawTopGrayLine = false;
+		public bool DrawLeftGrayLine = false;
+		public bool HighQuality = true;
 
 		public int CurrentPathWidth, CurrentPathHeight;
 
 		GraphicsPath GetRoundPath(RectangleF Rect, int radius)
 		{
+			if (radius == 0)
+				radius = 1;
 			//float r2 = radius / 2f;
 			GraphicsPath GraphPath = new GraphicsPath();
 
@@ -33,6 +37,8 @@ namespace nsForm
 		}
 		GraphicsPath GetRoundPathTop(RectangleF Rect, int radius)
 		{
+			if (radius == 0)
+				radius = 1;
 			//float r2 = radius / 2f;
 			GraphicsPath GraphPath = new GraphicsPath();
 
@@ -42,12 +48,29 @@ namespace nsForm
 
 			return GraphPath;
 		}
+		GraphicsPath GetRoundPathLeft(RectangleF Rect, int radius)
+		{
+			if (radius == 0)
+				radius = 1;
+			//float r2 = radius / 2f;
+			GraphicsPath GraphPath = new GraphicsPath();
 
-		GraphicsPath GraphPath = null, GraphPathTop = null;
+			GraphPath.AddArc(Rect.X, Rect.Y + Rect.Height - radius - 1, radius, radius, 90, 90);
+			GraphPath.AddLine(Rect.X, Rect.Height - radius - 1, Rect.X, Rect.Y + radius);
+			GraphPath.AddArc(Rect.X, Rect.Y, radius, radius, 180, 90);
+
+			return GraphPath;
+		}
+
+		GraphicsPath GraphPath = null;
+		GraphicsPath GraphPathTop = null, GraphPathLeft = null;
 		Pen pen = null;
 		protected override void OnPaint(PaintEventArgs e)
 		{
-			e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+			if (HighQuality)
+				e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+			else
+				e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
 			base.OnPaint(e);
 
 			int borderRadius = this.Width / 10;
@@ -59,6 +82,7 @@ namespace nsForm
 				RectangleF Rect = new RectangleF(0, 0, this.Width, this.Height);
 				GraphPath = GetRoundPath(Rect, borderRadius);
 				GraphPathTop = GetRoundPathTop(Rect, borderRadius);
+				GraphPathLeft = GetRoundPathLeft(Rect, borderRadius);
 				this.Region = new Region(GraphPath);
 			}
 
@@ -67,8 +91,10 @@ namespace nsForm
 				pen = new Pen(Color.Silver, borderThickness);
 				pen.Alignment = PenAlignment.Inset;
 			}
-			if (DrawTopGrayLine)
+			if (HighQuality && DrawTopGrayLine)
 				e.Graphics.DrawPath(pen, GraphPathTop);
+			if (HighQuality && DrawLeftGrayLine)
+				e.Graphics.DrawPath(pen, GraphPathLeft);
 		}
 	}
 }

@@ -72,6 +72,7 @@
 			this.btTest.TabIndex = 1;
 			this.btTest.Text = "test";
 			this.btTest.UseVisualStyleBackColor = true;
+			this.btTest.Visible = false;
 			this.btTest.Click += new System.EventHandler(this.btTest_Click);
 			// 
 			// lbStatusCardsLeft
@@ -176,7 +177,7 @@
 			this.btSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btSettings.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btSettings.Location = new System.Drawing.Point(815, 225);
-			this.btSettings.Margin = new System.Windows.Forms.Padding(5);
+			this.btSettings.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
 			this.btSettings.Name = "btSettings";
 			this.btSettings.Size = new System.Drawing.Size(100, 30);
 			this.btSettings.TabIndex = 3;
@@ -213,7 +214,8 @@
 			this.Name = "Adaman_Form";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Adaman";
-			this.Load += new System.EventHandler(this.Form1_Load);
+			this.Load += new System.EventHandler(this.Adaman_Form_Load);
+			this.SizeChanged += new System.EventHandler(this.Adaman_Form_SizeChanged);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 

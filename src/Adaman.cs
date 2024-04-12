@@ -40,25 +40,6 @@ namespace nsDecktet
 			CardPerRow = Adaman_Config.CardPerRow;
 			NoReplenishAt5 = Adaman_Config.NoReplenishAt5;
 
-			ResourceCard = new DecktetDeck[CardPerRow];
-			CapitalCard = new DecktetDeck[CardPerRow];
-			PalaceCard = new DecktetDeck[CardPerRow];
-			for (int i = 0; i < CardPerRow; i++)
-			{
-				ResourceCard[i] = new DecktetDeck("R" + i);
-				ResourceCard[i].PositionX = i * 150 + 280;
-				ResourceCard[i].PositionY = 530;
-				CapitalCard[i] = new DecktetDeck("C" + i);
-				CapitalCard[i].PositionX = i * 150 + 280;
-				CapitalCard[i].PositionY = 320;
-				PalaceCard[i] = new DecktetDeck("P" + i);
-				PalaceCard[i].PositionX = i * 150 + 280;
-				PalaceCard[i].PositionY = 110;
-			}
-			Palace6th = new DecktetDeck("P6th");
-			Palace6th.PositionX = CardPerRow * 150 + 280;
-			Palace6th.PositionY = 110;
-
 			resources_cav = new bool[CardPerRow];
 			resourses_sa = new bool[CardPerRow];
 		}
@@ -69,14 +50,15 @@ namespace nsDecktet
 			clone.MainDeck = MainDeck.Clone();
 			clone.DiscardedDeck = DiscardedDeck.Clone();
 			clone.DiscardedPersonalityDeck = DiscardedPersonalityDeck.Clone();
+
+			clone.ResourceCard = new DecktetDeck[CardPerRow];
+			clone.CapitalCard = new DecktetDeck[CardPerRow];
+			clone.PalaceCard = new DecktetDeck[CardPerRow];
 			for (int i = 0; i < CardPerRow; i++)
 			{
-				if (!ResourceCard[i].IsEmpty())
-					clone.ResourceCard[i] = ResourceCard[i].Clone();
-				if (!CapitalCard[i].IsEmpty())
-					clone.CapitalCard[i] = CapitalCard[i].Clone();
-				if (!PalaceCard[i].IsEmpty())
-					clone.PalaceCard[i] = PalaceCard[i].Clone();
+				clone.ResourceCard[i] = ResourceCard[i].Clone();
+				clone.CapitalCard[i] = CapitalCard[i].Clone();
+				clone.PalaceCard[i] = PalaceCard[i].Clone();
 			}
 			clone.Palace6th = Palace6th.Clone();
 			clone.GameOver = GameOver;
@@ -148,17 +130,50 @@ namespace nsDecktet
 			MainDeck.Shuffle(seeded);
 			MainDeck.PositionX = 90;
 			MainDeck.PositionY = 150;
+			MainDeck.SizeW = 135;
+			MainDeck.SizeH = 189;
 			MainDeck.InitAllCardsPosition();
 
 			DiscardedDeck = new DecktetDeck();
 			DiscardedDeck.GameName = "Discarded";
 			DiscardedDeck.PositionX = 600;
 			DiscardedDeck.PositionY = 900;
+			DiscardedDeck.SizeW = 135;
+			DiscardedDeck.SizeH = 189;
 
 			DiscardedPersonalityDeck = new DecktetDeck();
 			DiscardedPersonalityDeck.GameName = "DiscardedFace";
 			DiscardedPersonalityDeck.PositionX = 90;
 			DiscardedPersonalityDeck.PositionY = 430;
+			DiscardedDeck.SizeW = 135;
+			DiscardedDeck.SizeH = 189;
+
+			ResourceCard = new DecktetDeck[CardPerRow];
+			CapitalCard = new DecktetDeck[CardPerRow];
+			PalaceCard = new DecktetDeck[CardPerRow];
+			for (int i = 0; i < CardPerRow; i++)
+			{
+				ResourceCard[i] = new DecktetDeck("R" + i);
+				ResourceCard[i].PositionX = i * 150 + 280;
+				ResourceCard[i].PositionY = 530;
+				ResourceCard[i].SizeW = 135;
+				ResourceCard[i].SizeH = 189;
+				CapitalCard[i] = new DecktetDeck("C" + i);
+				CapitalCard[i].PositionX = i * 150 + 280;
+				CapitalCard[i].PositionY = 320;
+				CapitalCard[i].SizeW = 135;
+				CapitalCard[i].SizeH = 189;
+				PalaceCard[i] = new DecktetDeck("P" + i);
+				PalaceCard[i].PositionX = i * 150 + 280;
+				PalaceCard[i].PositionY = 110;
+				PalaceCard[i].SizeW = 135;
+				PalaceCard[i].SizeH = 189;
+			}
+			Palace6th = new DecktetDeck("P6th");
+			Palace6th.PositionX = CardPerRow * 150 + 280;
+			Palace6th.PositionY = 110;
+			Palace6th.SizeW = 135;
+			Palace6th.SizeH = 189;
 
 			ResourceReplenish();
 			if (GameOver)

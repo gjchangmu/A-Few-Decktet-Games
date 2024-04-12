@@ -15,9 +15,9 @@ namespace nsForm
 		[STAThread]
 		static void Main()
 		{
-			Application.ThreadException += new ThreadExceptionEventHandler(UIThreadException);
-			Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
-			AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledException);
+			//Application.ThreadException += new ThreadExceptionEventHandler(UIThreadException);
+			//Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+			//AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(UnhandledException);
 
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);

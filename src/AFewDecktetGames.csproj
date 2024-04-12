@@ -66,6 +66,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="DefenseCapture1p.cs" />
+    <Compile Include="DefenseCapture1p_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DefenseCapture1p_Form.Designer.cs">
+      <DependentUpon>DefenseCapture1p_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DefenseCapture1p_Config.cs" />
+    <Compile Include="Token.cs" />
     <Compile Include="Main_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,10 +116,14 @@
     <Compile Include="RoundedButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UIAnimationStep.cs" />
     <Compile Include="UIButton.cs" />
     <Compile Include="Util.cs" />
     <EmbeddedResource Include="Main_Form.resx">
       <DependentUpon>Main_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DefenseCapture1p_Form.resx">
+      <DependentUpon>DefenseCapture1p_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Myrmex_FormConfig.resx">
       <DependentUpon>Myrmex_FormConfig.cs</DependentUpon>
@@ -452,6 +465,279 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\back3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s0_.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s0__s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s2_mk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s2_mk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s2_sy.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s2_sy_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s2_wl.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s2_wl_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s3_ly.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s3_ly_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s3_mw.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s3_mw_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s3_sk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s3_sk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s4_ms.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s4_ms_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s4_wl.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s4_wl_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s4_yk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s4_yk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s5_ml.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s5_ml_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s5_sw.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s5_sw_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s5_yk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s5_yk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s6_lk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s6_lk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s6_mw.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s6_mw_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s6_sy.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s6_sy_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s7_ml.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s7_ml_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s7_sk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s7_sk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s7_wy.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s7_wy_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s8_ms.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s8_ms_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s8_wl.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s8_wl_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s8_yk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s8_yk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s9_lk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s9_lk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s9_ms.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s9_ms_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s9_wy.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\s9_wy_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_k.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_k_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_l.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_l_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_m.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_m_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_s_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_w.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_w_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_y.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sAce_y_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCourt_mly.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCourt_mly_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCourt_mwk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCourt_mwk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCourt_slk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCourt_slk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCourt_swy.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCourt_swy_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_k.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_k_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_l.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_l_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_m.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_m_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_s_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_w.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_w_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_y.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sCrown_y_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sPawn_msl.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sPawn_msl_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sPawn_myk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sPawn_myk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sPawn_swk.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sPawn_swk_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sPawn_wly.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sPawn_wly_s.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sback.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

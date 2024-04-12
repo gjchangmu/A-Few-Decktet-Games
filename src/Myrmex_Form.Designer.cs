@@ -152,7 +152,8 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Myrmex";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Myrmex_Form_FormClosing);
-			this.Load += new System.EventHandler(this.Form1_Load);
+			this.Load += new System.EventHandler(this.Myrmex_Form_Load);
+			this.SizeChanged += new System.EventHandler(this.Myrmex_Form_SizeChanged);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Myrmex_Form_KeyDown);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);

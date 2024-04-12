@@ -12,8 +12,6 @@ namespace nsDecktet
 		public List<string> Types = new List<string>();
 		public bool FaceUp = false;
 		public bool Sideways;
-		public List<float> PositionX = new List<float>();
-		public List<float> PositionY = new List<float>();
 
 		public string ShortName;
 		public int RankNum;
@@ -106,8 +104,8 @@ namespace nsDecktet
 			//clone.UIX = UIX;
 			//clone.UIY = UIY;
 			//clone.UIFlyingZOrder = UIFlyingZOrder;
-			clone.UIFlyOnTop = UIFlyOnTop;
-			clone.UIFlyInstantly = UIFlyInstantly;
+			clone.UIAlwaysFlyOnTop = UIAlwaysFlyOnTop;
+			clone.UIAlwaysFlyInstantly = UIAlwaysFlyInstantly;
 
 			return clone;
 		}
@@ -140,11 +138,9 @@ namespace nsDecktet
 		}
 
 		// only for UI, not related to any game logic
-		public int UIFlyingZOrder;
-		public bool UIFlyOnTop = true;
-		public bool UIFlyInstantly = false;
-		public bool UIFlyInstantlyOnce = false;
-		public List<DateTime> UIFlyingStartTime = new List<DateTime>();
+		public List<UIAnimationStep> UIAnimationSteps = new List<UIAnimationStep>();
+		public bool UIAlwaysFlyOnTop = true;
+		public bool UIAlwaysFlyInstantly = false;
 		public DateTime UIFlipFaceStartTime;
 	}
 }

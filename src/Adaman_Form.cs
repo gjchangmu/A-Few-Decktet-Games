@@ -22,7 +22,9 @@ namespace nsForm
 		int CapitalSelectedIndex = -1;
 		int PalaceSelectedIndex = -1;
 
-		bool UINeedUpdate = true;
+		float EffectiveScale = 1f;
+		float EffectiveWindowLeft = 0;
+		float EffectiveWindowTop = 0;
 
 		public int[] FormCurrentSelectedAction()
 		{
@@ -111,20 +113,20 @@ namespace nsForm
 
 			InitializeComponent();
 		}
-		private void Form1_Load(object sender, EventArgs e)
+		private void Adaman_Form_Load(object sender, EventArgs e)
 		{
 			int CardPerRow = Adaman_Config.CardPerRow;
 
 			ResourceSelected = new bool[CardPerRow];
 
-			//btConfirm.BackColor = SystemColors.ButtonFace;
-			btConfirm.Left = CardPerRow * 150 + 230;
-			btSuggest.Left = CardPerRow * 150 + 230;
-			btSettings.Left = CardPerRow * 150 + 230;
-			btNewGame.Left = CardPerRow * 150 + 230;
-			btReset.Left = CardPerRow * 150 + 230;
-			btUndo.Left = CardPerRow * 150 + 230;
-			btTest.Left = CardPerRow * 150 + 500;
+			btConfirm.BackColor = SystemColors.ButtonFace;
+			//btConfirm.Left = CardPerRow * 150 + 230;
+			//btSuggest.Left = CardPerRow * 150 + 230;
+			//btSettings.Left = CardPerRow * 150 + 230;
+			//btNewGame.Left = CardPerRow * 150 + 230;
+			//btReset.Left = CardPerRow * 150 + 230;
+			//btUndo.Left = CardPerRow * 150 + 230;
+			//btTest.Left = CardPerRow * 150 + 500;
 			//lbStatusPersonLeft.Left = CardPerRow * 150 + 230;
 			if (!Adaman_Config.AllowUndo) btUndo.Visible = false;
 			if (!Adaman_Config.AllowSuggest) btSuggest.Visible = false;
@@ -133,6 +135,8 @@ namespace nsForm
 			tiUI.Enabled = true;
 			pictureBox1.Size = this.Size;
 			pictureBox1.SendToBack();
+
+			Adaman_Form_SizeChanged(sender, e);
 		}
 
 		private void btComponents_Click(object sender, EventArgs e)
@@ -186,7 +190,7 @@ namespace nsForm
 			}
 
 			CheckCurrentSelectedActionValid();
-			UINeedUpdate = true;
+			//UINeedUpdate = true;
 		}
 
 		private void btConfirm_Click(object sender, EventArgs e)
@@ -201,7 +205,7 @@ namespace nsForm
 			//	Adaman.PrintActionFeatures(a);
 
 			ClearSelection();
-			UINeedUpdate = true;
+			//UINeedUpdate = true;
 		}
 
 		private void btSettings_Click(object sender, EventArgs e)
@@ -227,7 +231,7 @@ namespace nsForm
 				ClearSelection();
 			}
 
-			UINeedUpdate = true;
+			//UINeedUpdate = true;
 		}
 		private void btUndo_Click(object sender, EventArgs e)
 		{
@@ -238,7 +242,7 @@ namespace nsForm
 			}
 
 			ClearSelection();
-			UINeedUpdate = true;
+			//UINeedUpdate = true;
 		}
 		private void btReset_Click(object sender, EventArgs e)
 		{
@@ -254,7 +258,7 @@ namespace nsForm
 				History.Clear();
 			}
 
-			UINeedUpdate = true;
+			//UINeedUpdate = true;
 		}
 		private void btNewGame_Click(object sender, EventArgs e)
 		{
@@ -277,7 +281,7 @@ namespace nsForm
 			btNewGame.Text = "New Game";
 
 			AllComponentInstantToStartPosition();
-			UINeedUpdate = true;
+			//UINeedUpdate = true;
 		}
 
 		private Dictionary<string, UIButton> CardShotName2Button = new Dictionary<string, UIButton>();
@@ -296,8 +300,10 @@ namespace nsForm
 					bt.Button = new RoundedButton();
 					bt.Button.Tag = gamename;
 					DecktetCard card = Adaman.GetComponent(gamename);
-					bt.Button.Location = new Point((int)(bt.UIX - bt.Button.Width / 2 + 0.5f), (int)(bt.UIY - bt.Button.Height / 2 + 0.5f));
-					bt.Button.Size = new Size(150, 210);
+					bt.UIX = card.UIAnimationSteps[0].PositionX;
+					bt.UIY = card.UIAnimationSteps[0].PositionY;
+					bt.UIW = card.UIAnimationSteps[0].SizeW;
+					bt.UIH = card.UIAnimationSteps[0].SizeH;
 					bt.Button.BackgroundImageLayout = ImageLayout.Zoom;
 					bt.Button.FlatStyle = FlatStyle.Flat;
 					bt.Button.FlatAppearance.BorderSize = 6;
@@ -334,7 +340,7 @@ namespace nsForm
 					bt.UIX = Adaman.MainDeck.PositionX;
 					bt.UIY = Adaman.MainDeck.PositionY;
 					//bt.Button.Location = new Point((int)(bt.UIX - bt.Button.Width / 2 + 0.5f), (int)(bt.UIY - bt.Button.Height / 2 + 0.5f));
-					bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back3");
+					bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back2");
 					bt.UIFaceUp = false;
 				}
 			}
@@ -360,7 +366,7 @@ namespace nsForm
 					}
 					else
 					{
-						bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back3");
+						bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back2");
 						bt.UIFaceUp = card.FaceUp;
 					}
 				}
@@ -384,20 +390,20 @@ namespace nsForm
 
 				if (selected)
 				{
-					bt.Button.Width = 146;
-					bt.Button.Height = 200;
+					bt.UIW = Adaman.MainDeck.SizeW + 14;
+					bt.UIH = Adaman.MainDeck.SizeH + 14;
 					bt.Button.FlatAppearance.BorderSize = 6;
 					bt.Button.FlatAppearance.BorderColor = Color.Gold;
-					bt.Button.Location = new Point((int)(bt.UIX - bt.Button.Width / 2 + 0.5f), (int)(bt.UIY - bt.Button.Height / 2 + 0.5f));
+					//bt.Button.Location = new Point((int)(bt.UIX - bt.Button.Width / 2 + 0.5f), (int)(bt.UIY - bt.Button.Height / 2 + 0.5f));
 
 				}
 				else
 				{
-					bt.Button.Width = 138;
-					bt.Button.Height = 189;
+					bt.UIW = Adaman.MainDeck.SizeW;
+					bt.UIH = Adaman.MainDeck.SizeH;
 					bt.Button.FlatAppearance.BorderSize = 0;
 					bt.Button.FlatAppearance.BorderColor = Config.BackTextureColor;
-					bt.Button.Location = new Point((int)(bt.UIX - bt.Button.Width / 2 + 0.5f), (int)(bt.UIY - bt.Button.Height / 2 + 0.5f));
+					//bt.Button.Location = new Point((int)(bt.UIX - bt.Button.Width / 2 + 0.5f), (int)(bt.UIY - bt.Button.Height / 2 + 0.5f));
 				}
 			}
 
@@ -412,8 +418,8 @@ namespace nsForm
 					for (int i = 0; i < deck.Cards.Count; i++)
 					{
 						DecktetCard card = deck.Cards[i];
-						int zorder = card.UIFlyingZOrder + deck.UIZOrder + i;
-						if (card.UIFlyOnTop && CardShotName2Button[card.GameName].UIIsFlying)
+						int zorder = card.UIAnimationSteps[0].FlyZOrder + deck.UIZOrder + i;
+						if (card.UIAlwaysFlyOnTop && CardShotName2Button[card.GameName].UIIsFlying)
 						{
 							zorder += 200;
 						}
@@ -455,47 +461,45 @@ namespace nsForm
 				DecktetCard card = Adaman.GetComponent(gamename);
 				UIButton bt = CardShotName2Button[gamename];
 
-				float distance = (float)Math.Sqrt(Math.Pow((card.PositionX[0] - bt.UIX), 2) + Math.Pow((card.PositionY[0] - bt.UIY), 2));
+				float distance = (float)Math.Sqrt(Math.Pow((card.UIAnimationSteps[0].PositionX - bt.UIX), 2) + Math.Pow((card.UIAnimationSteps[0].PositionY - bt.UIY), 2));
 				float flyd = Adaman_Config.AnimationSpeed * dt;
 
-				if (distance > 0 || card.PositionX.Count > 1)
+				if (distance > 0 || card.UIAnimationSteps.Count > 1)
 				{
 					bt.UIIsFlying = true;
 				}
-				if (card.UIFlyingStartTime[0] < DateTime.Now)
+				if (card.UIAnimationSteps[0].StartTime < DateTime.Now)
 				{
 
 					if (distance > flyd)
 					{
 						float r = flyd / distance;
-						bt.UIX += (card.PositionX[0] - bt.UIX) * r;
-						bt.UIY += (card.PositionY[0] - bt.UIY) * r;
+						bt.UIX += (card.UIAnimationSteps[0].PositionX - bt.UIX) * r;
+						bt.UIY += (card.UIAnimationSteps[0].PositionY - bt.UIY) * r;
 					}
 					else if (distance > 0)
 					{
-						bt.UIX = card.PositionX[0];
-						bt.UIY = card.PositionY[0];
+						bt.UIX = card.UIAnimationSteps[0].PositionX;
+						bt.UIY = card.UIAnimationSteps[0].PositionY;
 						//UINeedUpdate = true;
 					}
 					else
 					{
-						if (card.PositionX.Count > 1)
+						if (card.UIAnimationSteps.Count > 1)
 						{
-							card.PositionX.RemoveAt(0);
-							card.PositionY.RemoveAt(0);
-							card.UIFlyingStartTime.RemoveAt(0);
+							card.UIAnimationSteps.RemoveAt(0);
 						}
 						else
 						{
 							bt.UIIsFlying = false;
-							card.UIFlyingZOrder = 0;
+							card.UIAnimationSteps[0].FlyZOrder = 0;
 						}
 					}
 
-					bt.Button.Location = new Point((int)(bt.UIX - bt.Button.Width / 2 + 0.5f), (int)(bt.UIY - bt.Button.Height / 2 + 0.5f));
+					ToScaledLocationSize(bt.Button, bt.UIX, bt.UIY, bt.UIW, bt.UIH);
 				}
 			}
-
+			
 			// ui buttons and texts
 			if (History.Count > 0)
 			{
@@ -544,7 +548,7 @@ namespace nsForm
 			else
 				lbStatusPersonLeft.Visible = false;
 
-			UINeedUpdate = false;
+			//UINeedUpdate = false;
 		}
 		private void AllComponentInstantToStartPosition()
 		{
@@ -552,10 +556,13 @@ namespace nsForm
 			{
 				//DecktetCard card = Adaman.GetComponent(shortname);
 				UIButton bt = CardShotName2Button[shortname];
+				bt.UIW = Adaman.MainDeck.SizeW;
+				bt.UIH = Adaman.MainDeck.SizeH;
 				bt.UIX = Adaman.MainDeck.PositionX;
 				bt.UIY = Adaman.MainDeck.PositionY;
-				bt.Button.Location = new Point((int)(bt.UIX - bt.Button.Width / 2 + 0.5f), (int)(bt.UIY - bt.Button.Height / 2 + 0.5f));
-				bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back3");
+				ToScaledLocationSize(bt.Button, bt.UIX, bt.UIY, bt.UIW, bt.UIH);
+
+				bt.Button.BackgroundImage = (Bitmap)Properties.Resources.ResourceManager.GetObject("back2");
 				bt.UIFaceUp = false;
 			}
 		}
@@ -618,6 +625,48 @@ namespace nsForm
 			Console.WriteLine("win: " + (float)win / N);
 		}
 
+		private void Adaman_Form_SizeChanged(object sender, EventArgs e)
+		{
+			if ((float)this.Width / this.Height >= 1280f / 720f)
+			{
+				EffectiveScale = this.Height / 720f;
+				EffectiveWindowLeft = (this.Width - this.Height / 720f * 1280f) / 2f;
+				EffectiveWindowTop = 0;
+			}
+			else
+			{
+				EffectiveScale = this.Width / 1280f;
+				EffectiveWindowLeft = 0;
+				EffectiveWindowTop = (this.Height - this.Width / 1280f * 720f) / 2f;
+			}
+
+			ToScaledLocationSize(btSettings, 1030, 240, 100, 30);
+			ToScaledLocationSize(btNewGame, 1030, 280, 100, 30);
+			ToScaledLocationSize(btReset, 1030, 320, 100, 30);
+			ToScaledLocationSize(btUndo, 1030, 450, 100, 30);
+			ToScaledLocationSize(btSuggest, 1030, 490, 100, 30);
+			ToScaledLocationSize(btConfirm, 1030, 590, 100, 60, 16);
+			ToScaledLocationSize(lbStatusCardsLeft, 95, 265, 150, 30, 15);
+			ToScaledLocationSize(lbStatusPersonLeft, 95, 545, 150, 45, 20);
+			ToScaledLocationSize(lbStatusWin, 580, 150, 580, 70, 20);
+
+			pictureBox1.Width = this.Width;
+			pictureBox1.Height = this.Height;
+		}
+
+		private void ToScaledLocationSize(Control control, float left, float top, float width, float height, float fontsize = 11)
+		{
+			int aimw = (int)(width * EffectiveScale + 0.5f);
+			int aimh = (int)(height * EffectiveScale + 0.5f);
+			int aiml = (int)(left * EffectiveScale + EffectiveWindowLeft - aimw / 2 + 0.5f);
+			int aimt = (int)(top * EffectiveScale + EffectiveWindowTop - aimh / 2 + 0.5f);
+			if (control.Left != aiml || control.Top != aimt)
+				control.Location = new Point(aiml, aimt);
+			if (control.Width != aimw || control.Height != aimh)
+				control.Size = new Size(aimw, aimh);
+			if ((int)control.Font.SizeInPoints != (int)(fontsize * EffectiveScale))
+				control.Font = new Font(control.Font.Name, (int)(fontsize * EffectiveScale));
+		}
 	}
 
 }
